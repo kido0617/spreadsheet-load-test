@@ -33,7 +33,7 @@ namespace SpreadSheetLoader {
       accessCode = EditorGUILayout.TextField("Access Code", accessCode);
       if (GUILayout.Button("Authentication with Acceess Code")) {
         string refreshToken = oAuth2.AuthWithAccessCode(accessCode);
-        EditorPrefs.SetString(PREF_STR, refreshToken);
+        EditorPrefs.SetString(PREF_STR, refreshToken);  //save refresh token
       }
 
       if (GUILayout.Button("Load Spread Sheet")) {
