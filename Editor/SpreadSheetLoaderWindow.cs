@@ -33,11 +33,11 @@ namespace SpreadSheetLoader {
       accessCode = EditorGUILayout.TextField("Access Code", accessCode);
       if (GUILayout.Button("Authentication with Acceess Code")) {
         string refreshToken = oAuth2.AuthWithAccessCode(accessCode);
-        EditorPrefs.SetString(PREF_STR, refreshToken);  //save refresh token
+        EditorUserSettings.SetConfigValue(PREF_STR, refreshToken);    //save refresh token
       }
 
       if (GUILayout.Button("Load Spread Sheet")) {
-        if (EditorPrefs.GetString(PREF_STR) == "") {
+        if (EditorUserSettings.GetConfigValue(PREF_STR) == "") {
           Debug.LogError("Refresh Token is not set. You need above authentication steps.");
           return;
         }
@@ -46,7 +46,7 @@ namespace SpreadSheetLoader {
     }
 
     void Load() {
-      var refreshToken = EditorPrefs.GetString(PREF_STR);
+      var refreshToken = EditorUserSettings.GetConfigValue(PREF_STR);
       spreadSheet = new SpreadSheetManager(oAuth2.GetOAuth2Parameter(refreshToken));
       spreadSheet.LoadSpreadSheet(Config.SPREAD_SHEET_ID);
       var listFeed = spreadSheet.GetListFeed(0);      //set sheet number
@@ -59,6 +59,5 @@ namespace SpreadSheetLoader {
       }
 
     }
-
   }
 }
